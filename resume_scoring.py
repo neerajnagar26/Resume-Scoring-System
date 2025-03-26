@@ -16,6 +16,7 @@ nlp = spacy.load("en_core_web_sm")
 MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
 
 def extract_text_from_pdf(pdf_path):
+    """Extract text from a given PDF file."""
     text = ""
     doc = fitz.open(pdf_path)
     for page in doc:
@@ -24,6 +25,7 @@ def extract_text_from_pdf(pdf_path):
 
 
 def extract_skills(text):
+    """Extract named entities that could represent skills."""
     doc = nlp(text)
     # Named Entity Recognition (NER)
     # for ent in doc.ents:
@@ -33,6 +35,7 @@ def extract_skills(text):
     return skills
 
 def compute_similarity(resume_text, job_desc):
+    """Compute a similarity score between the resume and job description."""
     vectorizer = TfidfVectorizer()
     tfidf_matrix = vectorizer.fit_transform([resume_text, job_desc])
     similarity_score = cosine_similarity(tfidf_matrix[0], tfidf_matrix[1])
@@ -41,10 +44,12 @@ def compute_similarity(resume_text, job_desc):
 
 
 def weighted_score(skill_score, exp_score, edu_score, proj_score):
+    """Calculate a weighted score based on different factors."""
     return (skill_score * 0.4) + (exp_score * 0.3) + (edu_score * 0.2) + (proj_score * 0.1)
 
 
 def generate_feedback(resume_text, job_description, prompt):
+    """Send resume and job description to Mistral AI for feedback."""
     if not resume_text or not job_description:
         return "Please provide both resume text and job description."
     
