@@ -1,2 +1,7 @@
 *
 !.gitignore
+
+# Do not ignore the README.md file
+!README.md
+
+!note1.ipynb
