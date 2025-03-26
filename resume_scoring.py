@@ -113,7 +113,9 @@ def main():
     final_score = weighted_score(80, 75, 90, 60)  # Example scores
     print(f"Final Resume Score: {final_score:.2f}%")
 
+    print("Please wait while the generating feedback...")
 
+    # Generate feedback
     prompt = None
     feedback = generate_feedback(resume_text, job_description, prompt)
     print("\nResume Feedback:\n", feedback)
